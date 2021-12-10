@@ -1,19 +1,33 @@
-const router = require('express').Router();
+const route = require("express").Router();
 
-const { 
-    rutaGet, rutaPost, rutaPut, rutaDelete, deleteUser
- } = require('../controllers/user.controllers');
+// Middlewares
+const {
+  form_post_middlewares,
+  form_update_middlewares,
+  form_password_middlewares,
+} = require("../middlewares/form-structure.middlewares");
 
-//  Ruta que devuelve todos los usuarios
-router.get('/', rutaGet)
+//Controllers
+const { loginUser } = require("../controllers/login.controllers");
+const {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require("../controllers/user.controllers.js");
 
-router.post('/', rutaPost)
+//Login:
+route.post("/login", loginUser);
+// register
+// route.post("/register", loginUser);
 
-// Actualizar usuarios
-router.put('/', rutaPut)
+//Route
+route.get("/:id", getUser);
+route.get("/", getUsers);
+route.post("/register", form_post_middlewares, createUser);
+route.put("/:id", form_update_middlewares, updateUser);
+route.put("/password/:id", form_password_middlewares, updateUser);
+route.delete("/:id", deleteUser);
 
-router.put('/deleteuser', deleteUser)
-
-router.delete('/', rutaDelete)
-
-module.exports = router;
+module.exports = route;

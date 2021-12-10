@@ -22,12 +22,12 @@ controller.getUser = async (req, res) => {
 };
 
 controller.createUser = async (req, res) => {
-  let { email, username, password, rol } = req.body;
+  let { email, username, password } = req.body;
 
   const salt = bcryptjs.genSaltSync();
   password = bcryptjs.hashSync(password, salt);
 
-  const user = new User({ email, username, password, rol });
+  const user = new User({ email, username, password });
   await user.save();
 
   res.json({
@@ -37,7 +37,7 @@ controller.createUser = async (req, res) => {
 
 controller.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { email, username, rol, active } = req.body;
+  const { email, username, active } = req.body;
   const update = {};
 
   if (username) {
@@ -52,11 +52,7 @@ controller.updateUser = async (req, res) => {
     update.active = active;
   }
 
-  if (rol) {
-    update.rol = rol;
-  }
-
-  if (update.username || update.email || update.rol || update.active) {
+  if (update.username || update.email || update.active) {
     try {
       const user = await User.findByIdAndUpdate(id, update, { new: true });
       return res.json({ msg: "Datos de usuario actualizados" });

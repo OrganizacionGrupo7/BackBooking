@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-// require('dotenv').config();
+const mongoose = require('mongoose');
+require("dotenv").config();
+
 mongoose
-  .connect(process.env.URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Conectado a la base de datos"))
-  .catch((err) => console.error(err));
+    .connect(process.env.URI)
+    .then(() => console.log('Conexión establecida a la Base de Datos'))
+    .catch(err => console.log("Error al conectar a la Base de Datos"))
+
+module.exports = mongoose;
