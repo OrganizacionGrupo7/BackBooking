@@ -17,6 +17,6 @@ app.use(express.urlencoded({ extended:false }));
 app.set('port', process.env.PORT || 4000)
 
 //Routes
-app.use("api/users", require('./routes/user.routes'));
+app.use("/api", require("./routes/apiAuthentication.routes"));
 
 app.listen(app.get('port'), ()=> console.log(`Server run on port ${app.get('port')}`));

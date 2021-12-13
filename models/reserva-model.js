@@ -23,4 +23,4 @@ const ReservaSchema = new Schema({
     }
 });
 
-module.exports = models("Reserva", ReservaSchema);
+module.exports = model("Reserva", ReservaSchema);
